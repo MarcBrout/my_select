@@ -1,11 +1,11 @@
 ##
-## Makefile for bistro in /home/bougon_p/rendu/Piscine_C_bistromathique
+## Makefile for select
 ## 
-## Made by Pierre Bougon
-## Login   <bougon_p@epitech.net>
+## Made by marc brout
+## Login   <brout_m@epitech.net>
 ## 
-## Started on  Thu Oct 29 14:45:48 2015 Pierre Bougon
-## Last update Tue Dec  1 13:33:55 2015 marc brout
+## Started on  Tue Dec  1 22:51:35 2015 marc brout
+## Last update Thu Dec  3 10:54:22 2015 marc brout
 ##
 
 SRCP	= ./src/
@@ -20,7 +20,7 @@ CC      = gcc
 
 CFLAGS  = -W -Wall -ansi -pedantic -g
 
-LDFLAGS = -lmy -L./lib/
+LDFLAGS = -L./lib/ -lmy -lncurses -I./include/
 
 RM      = rm -f
 

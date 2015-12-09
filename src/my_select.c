@@ -5,156 +5,22 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Tue Dec  1 13:40:18 2015 marc brout
-** Last update Thu Dec  3 11:34:25 2015 marc brout
+** Last update Wed Dec  9 20:22:25 2015 marc brout
 */
 
 #include "my_select.h"
 
-int		add_elem_to_list(t_wrk *wrk, t_arg *arg, char *str)
+char		resize_window(t_wrk *wrk)
 {
-  t_arg		*elem;
+  int		col;
 
-  if (str[0] == 0)
-    return (1);
-  if ((elem = malloc(sizeof(t_arg))) == NULL)
-    return (2);
-  elem->str = str;
-  elem->cursor = 0;
-  elem->select = 0;
-  elem->next = arg;
-  elem->prev = arg->prev;
-  arg->prev->next = elem;
-  arg->prev = elem;
-  wrk->len += 1;
-  return (0);
-}
-
-int		create_first_elem(t_wrk *wrk, char *str)
-{
-  t_arg		*elem;
-
-  if ((elem = malloc(sizeof(t_arg))) == NULL)
-    return (2);
-  elem->str = str;
-  elem->cursor = 1;
-  elem->select = 0;
-  elem->next = elem;
-  elem->prev = elem;
-  wrk->arg = elem;
-  wrk->len = 1;
-  return (0);
-}
-
-void		my_put_stch_underline(char *str)
-{
-  int		i;
-
-  i = -1;
-  while (str[++i])
-    addch(str[i] | A_UNDERLINE);
-}
-
-void		my_put_stch_bgcolor(char *str)
-{
-  int		i;
-
-  i = -1;
-  while (str[++i])
-    addch(str[i] | A_REVERSE);
-}
-
-void		my_put_stch_both(char *str)
-{
-  int		i;
-
-  i = -1;
-  while (str[++i])
-    addch(str[i] | A_UNDERLINE | A_REVERSE);
-}
-
-void		print_string_mode(t_arg *arg)
-{
-  if (arg->cursor && !arg->select)
-    my_put_stch_underline(arg->str);
-  else if (!arg->cursor && arg->select)
-    my_put_stch_bgcolor(arg->str);
-  else if (arg->cursor && arg->select)
-    my_put_stch_both(arg->str);
-  else
-    addstr(arg->str);
-}
-
-void		show_list(t_wrk *wrk)
-{
-  t_arg		*tmp;
-  int		y;	
-
-  tmp = wrk->arg;
-  y = 0;
-  while (tmp != wrk->arg->prev)
-    {
-      print_string_mode(tmp);
-      y += 1;
-      move(y, 0);
-      tmp = tmp->next;
-    }
-  print_string_mode(tmp);
-  move(0, 0);
-  refresh();
-}
-
-void		delete_node(t_wrk *wrk)
-{
-  t_arg		*tmp;
-
-  tmp = wrk->cur->next;
-  if (wrk->arg == wrk->cur)
-    wrk->arg = wrk->arg->next;
-  wrk->cur->next->prev = wrk->cur->prev;
-  wrk->cur->prev->next = wrk->cur->next;
-  if (wrk->cur != NULL)
-    free(wrk->cur);
-  wrk->cur = tmp;
-  wrk->cur->cursor = 1;
-  wrk->len -= 1;
-}
-
-void		select_it(t_wrk *wrk)
-{
-  wrk->cur->select = (wrk->cur->select) ? 0 : 1;
-  move_next(wrk);
-}
-
-void		move_next(t_wrk *wrk)
-{
-  wrk->cur->cursor = 0;
-  wrk->cur = wrk->cur->next;
-  wrk->cur->cursor = 1;
-}
-void		move_prev(t_wrk *wrk)
-{
-  wrk->cur->cursor = 0;
-  wrk->cur = wrk->cur->prev;
-  wrk->cur->cursor = 1;
-}
-
-void		move_key(t_wrk *wrk, int key)
-{
-  if (key == KEY_DOWN)
-    move_next(wrk);
-  if (key == KEY_UP)
-    move_prev(wrk);
-  if (key == MY_KEY_SPACE)
-    select_it(wrk);
-  if (key == KEY_DC || key == MY_KEY_BSPACE)
-    delete_node(wrk);
-  clear();
-}
-
-void		*resize_window(t_wrk *wrk)
-{
   getmaxyx(stdscr, wrk->win->h, wrk->win->w);
-  
+  wrk->win->col = wrk->win->w / (wrk->strl + 2);
+  col = wrk->len / wrk->win->h;
+  col += (wrk->len % wrk->win->h) ? 1 : 0;
+  if (col > wrk->win->col)
+    return (1);
+  return (0);
 }
 
 char		on_going_win(t_wrk *wrk)
@@ -163,19 +29,21 @@ char		on_going_win(t_wrk *wrk)
   t_win		twin;
 
   noecho();
+  set_escdelay(0);
   wrk->win = &twin;
+  resize_window(wrk);
   show_list(wrk);
-  signal(SIGWINCH, resize_window);
+  wrk->pos = 0;
   while ((key = getch()) && key != 27 && key != '\n')
     {
+      resize_window(wrk);
       move_key(wrk, key);
       if (!wrk->len)
-	return (0);
+	return (2);
       show_list(wrk);
     }
-  if (key == 27)
-    return (0);
-  return (1);
+  endwin();
+  return (0);
 }			     
 
 void		init_window(t_wrk *wrk)
@@ -185,52 +53,42 @@ void		init_window(t_wrk *wrk)
   keypad(stdscr, TRUE);
   wrk->arg->cursor = 1;
   wrk->cur = wrk->arg;
+  wrk->x = 0;
+  wrk->y = 0;
+  wrk->pos = 0;
 }
 
-void		put_str_select(t_arg *tmp, char *prec)
+char		put_error(t_wrk *wrk, char err)
 {
-  if (tmp->select == 1)
+  if (err)
     {
-      if (*prec)
-	my_putchar(' ');
-      my_putstr(tmp->str);
-      *prec = 1;
-    } 
-}
-
-void		put_user_select(t_wrk *wrk)
-{
-  t_arg		*tmp;
-  char		prec;
-
-  prec = 0;
-  tmp = wrk->arg;
-  while (tmp != wrk->arg->prev)
-    {
-      put_str_select(tmp, &prec);
-      tmp = tmp->next;
+      endwin();
+      if (err == 1)
+	write(2, "List too big for the window\n", 29);
+      if (err == 2)
+	write(2, "No more argument in the list\n", 30);
+      return (1);
     }
-  put_str_select(tmp, &prec);
+  else
+    put_user_select(wrk);
+  return (0);
 }
 
-int		main(int ac, char **av)
+int		main(int ac, char **av, char **env)
 {
   t_wrk		wrk;
   int		i;
 
-  if (ac < 2)
+  if (ac < 2 || env[0] == NULL)
     return (1);
-  create_first_elem(&wrk, av[1]);
+  if (create_first_elem(&wrk, av[1]))
+    return (1);
   i = 2;
   while (av[i])
-    add_elem_to_list(&wrk, wrk.arg, av[i++]);
+    if (add_elem_to_list(&wrk, wrk.arg, av[i++]))
+      return (1);
   init_window(&wrk);
-  if (on_going_win(&wrk))
-    {
-      endwin();
-      put_user_select(&wrk);
-    }
-  else
-    endwin();
+  if (put_error(&wrk, on_going_win(&wrk)))
+    return (1);
   return (0);
 }

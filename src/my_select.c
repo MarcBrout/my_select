@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Tue Dec  1 13:40:18 2015 marc brout
-** Last update Wed Dec  9 20:22:25 2015 marc brout
+** Last update Wed Dec  9 20:50:30 2015 marc brout
 */
 
 #include "my_select.h"
@@ -44,7 +44,7 @@ char		on_going_win(t_wrk *wrk)
     }
   endwin();
   return (0);
-}			     
+}
 
 void		init_window(t_wrk *wrk)
 {

@@ -1,0 +1,20 @@
+==31674== Memcheck, a memory error detector
+==31674== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==31674== Using Valgrind-3.10.0 and LibVEX; rerun with -h for copyright info
+==31674== Command: ./my_select /bin/arch /bin/awk /bin/basename /bin/bash /bin/cat /bin/chgrp /bin/chmod /bin/chown /bin/chvt /bin/clrunimap /bin/cp /bin/cpio /bin/csh /bin/date /bin/dbus-cleanup-sockets /bin/dbus-daemon /bin/dbus-monitor /bin/dbus-send /bin/dbus-uuidgen /bin/dd /bin/deallocvt /bin/df /bin/dmesg /bin/dnsdomainname /bin/domainname /bin/dumpkeys /bin/echo /bin/ed /bin/egrep /bin/ex /bin/false /bin/fgconsole /bin/fgrep /bin/fillup /bin/find /bin/findmnt /bin/fsync /bin/fuser /bin/gawk /bin/getkeycodes /bin/getunimap /bin/grep /bin/guess_encoding /bin/gunzip /bin/gzip /bin/hostname /bin/initviocons /bin/ip /bin/ipg /bin/kbdinfo /bin/kbd_mode /bin/kbdrate /bin/keyctl /bin/kill /bin/kmod /bin/ksh /bin/ksh93 /bin/ln /bin/loadkeys /bin/loadunimap /bin/logger /bin/login /bin/ls /bin/lsblk /bin/lsmod /bin/mail /bin/mapscrn /bin/md5sum /bin/mkdir /bin/mknod /bin/mktemp /bin/more /bin/mount /bin/mv /bin/netstat /bin/nisdomainname /bin/openvt /bin/outpsfheader /bin/pgrep /bin/pidof /bin/ping /bin/ping6 /bin/pkill /bin/ps /bin/psfaddtable /bin/psfgettable /bin/psfstriptable /bin/psfxtable /bin/pwd /bin/readlink /bin/resizecons /bin/rm /bin/rmdir /bin/rpm /bin/sash /bin/screendump /bin/sed /bin/setfont /bin/setkeycodes /bin/setleds /bin/setlogcons /bin/setmetamode /bin/setpalette /bin/setvesablank /bin/setvtrgb /bin/sh /bin/showconsolefont /bin/showkey /bin/sleep /bin/sort /bin/spawn_console /bin/spawn_login /bin/stat /bin/stty /bin/su /bin/sync /bin/systemctl /bin/systemd /bin/systemd-ask-password /bin/tar /bin/tcsh /bin/touch /bin/true /bin/umount /bin/uname /bin/unicode_start /bin/unicode_stop /bin/usleep /bin/vi /bin/vim /bin/ypdomainname /bin/zcat /bin/zsh
+==31674== 
+==31674== 
+==31674== HEAP SUMMARY:
+==31674==     in use at exit: 160,033 bytes in 590 blocks
+==31674==   total heap usage: 606 allocs, 16 frees, 164,901 bytes allocated
+==31674== 
+==31674== LEAK SUMMARY:
+==31674==    definitely lost: 32 bytes in 1 blocks
+==31674==    indirectly lost: 3,968 bytes in 124 blocks
+==31674==      possibly lost: 0 bytes in 0 blocks
+==31674==    still reachable: 156,033 bytes in 465 blocks
+==31674==         suppressed: 0 bytes in 0 blocks
+==31674== Rerun with --leak-check=full to see details of leaked memory
+==31674== 
+==31674== For counts of detected and suppressed errors, rerun with: -v
+==31674== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

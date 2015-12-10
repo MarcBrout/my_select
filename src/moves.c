@@ -5,16 +5,10 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Wed Dec  9 09:30:25 2015 marc brout
-** Last update Wed Dec  9 20:13:18 2015 marc brout
+** Last update Wed Dec  9 20:53:04 2015 marc brout
 */
 
 #include "my_select.h"
-
-void		select_it(t_wrk *wrk)
-{
-  wrk->cur->select = (wrk->cur->select) ? 0 : 1;
-  move_next(wrk);
-}
 
 void		move_right(t_wrk *wrk)
 {

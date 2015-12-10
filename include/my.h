@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Thu Oct  8 11:23:34 2015 marc brout
-** Last update Tue Dec  1 13:31:40 2015 marc brout
+** Last update Wed Dec  9 20:55:04 2015 marc brout
 */
 
 #ifndef MY_H_

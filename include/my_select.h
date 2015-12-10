@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Tue Dec  1 13:44:57 2015 marc brout
-** Last update Wed Dec  9 19:46:07 2015 marc brout
+** Last update Wed Dec  9 20:54:47 2015 marc brout
 */
 
 #ifndef MY_SELECT_H_
@@ -47,6 +47,7 @@ typedef struct		s_wrk
   int			strl;
 }			t_wrk;
 
+t_arg *advance(t_wrk *, t_arg *);
 int add_elem_to_list(t_wrk *, t_arg *, char *);
 int create_first_elem(t_wrk *, char *);
 char resize_window(t_wrk *);

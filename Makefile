@@ -5,7 +5,7 @@
 ## Login   <brout_m@epitech.net>
 ## 
 ## Started on  Tue Dec  1 22:51:35 2015 marc brout
-## Last update Thu Dec 10 20:35:42 2015 marc brout
+## Last update Thu Dec 10 20:51:43 2015 marc brout
 ##
 
 SRCP	= ./src/
@@ -24,14 +24,14 @@ NAME    = my_select
 
 CC      = gcc
 
-CFLAGS  = -W -Wall -ansi -pedantic -g
+CFLAGS  =
 
 LDFLAGS = -L./lib/ -lmy -lncurses -I./include/
 
 RM      = rm -f
 
-$(NAME):
-	@($(CC) -o $(NAME) $(SRC) $(LDFLAGS))
+$(NAME): $(OBJS)
+	@($(CC) -o $(NAME) $(OBJS) $(LDFLAGS))
 
 all: $(NAME) 
 
@@ -42,3 +42,6 @@ fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
+
+.c.o:
+	@($(CC) -c $< -o $@ $(LDFLAGS))

@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Tue Dec  1 13:44:57 2015 marc brout
-** Last update Thu Dec 10 20:33:23 2015 marc brout
+** Last update Thu Dec 10 20:45:24 2015 marc brout
 */
 
 #ifndef MY_SELECT_H_
@@ -54,35 +54,36 @@ typedef struct		s_wrk
   void			(**pfunc)(struct s_wrk *);
 }			t_wrk;
 
-t_arg *delete_node_sel(t_wrk *, t_arg *);
-t_arg *advance(t_wrk *, t_arg *);
 int add_elem_to_list(t_wrk *, t_arg *, char *);
+t_arg *advance(t_wrk *, t_arg *);
 int create_first_elem(t_wrk *, char *);
-int put_usage(int);
-char init_tabs(t_wrk *);
-char init_window(t_wrk *);
-char resize_window(t_wrk *);
-char on_going_win(t_wrk *);
-void select_all(t_wrk *);
-void select_inv(t_wrk *);
+void delete_node(t_wrk *);
+t_arg *delete_node_sel(t_wrk *, t_arg *);
 void del_select(t_wrk *);
 void free_list(t_arg *);
-void print_string_mode(t_wrk *, t_arg *);
-void put_user_select(t_wrk *);
-void put_str_select(t_arg *, char *);
+void init_keytab(t_wrk *);
+void init_pfunc(t_wrk *);
+char init_tabs(t_wrk *);
+char init_window(t_wrk *);
+void move_key(t_wrk *, int);
+void move_left(t_wrk *);
+void move_next(t_wrk *);
+void move_prev(t_wrk *);
+void move_right(t_wrk *);
 void my_put_stch_underline(t_wrk *, char *);
 void my_put_stch_bgcolor(t_wrk *, char *);
 void my_put_stch_both(t_wrk *, char *);
 void my_put_stnorm(t_wrk *, char *);
-void delete_node(t_wrk *);
+char on_going_win(t_wrk *);
+void print_string_mode(t_wrk *, t_arg *);
+void put_user_select(t_wrk *);
+void put_str_select(t_arg *, char *);
+char put_error(t_wrk *, char);
+int put_usage(int);
+char resize_window(t_wrk *);
+void select_all(t_wrk *);
+void select_inv(t_wrk *);
 void select_it(t_wrk *);
-void move_next(t_wrk *);
-void move_left(t_wrk *);
-void move_right(t_wrk *);
-void move_prev(t_wrk *);
-void move_key(t_wrk *, int);
 void show_list(t_wrk *);
-void init_pfunc(t_wrk *);
-void init_keytab(t_wrk *);
 
 #endif

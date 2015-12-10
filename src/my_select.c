@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Tue Dec  1 13:40:18 2015 marc brout
-** Last update Wed Dec  9 20:50:30 2015 marc brout
+** Last update Thu Dec 10 20:28:31 2015 marc brout
 */
 
 #include "my_select.h"
@@ -43,19 +43,8 @@ char		on_going_win(t_wrk *wrk)
       show_list(wrk);
     }
   endwin();
+  delscreen(wrk->screen);
   return (0);
-}
-
-void		init_window(t_wrk *wrk)
-{
-  initscr();
-  curs_set(0);
-  keypad(stdscr, TRUE);
-  wrk->arg->cursor = 1;
-  wrk->cur = wrk->arg;
-  wrk->x = 0;
-  wrk->y = 0;
-  wrk->pos = 0;
 }
 
 char		put_error(t_wrk *wrk, char err)
@@ -63,15 +52,27 @@ char		put_error(t_wrk *wrk, char err)
   if (err)
     {
       endwin();
-      if (err == 1)
-	write(2, "List too big for the window\n", 29);
       if (err == 2)
 	write(2, "No more argument in the list\n", 30);
+      delscreen(wrk->screen);
+      free_list(wrk->arg);
       return (1);
     }
   else
-    put_user_select(wrk);
+    {
+      put_user_select(wrk);
+      free_list(wrk->arg);
+    }
   return (0);
+}
+
+int		put_usage(int err)
+{
+  if (err == 1)
+    write(2, "Usage : my_select [CHOICES] ...\n", 33);
+  if (err == 2)
+    write(2, "Environnement not set\n", 23);
+  return (1);
 }
 
 int		main(int ac, char **av, char **env)
@@ -79,15 +80,18 @@ int		main(int ac, char **av, char **env)
   t_wrk		wrk;
   int		i;
 
-  if (ac < 2 || env[0] == NULL)
-    return (1);
+  if (ac < 2)
+    return (put_usage(1));
+  if (env[0] == NULL)
+    return (put_usage(2));
   if (create_first_elem(&wrk, av[1]))
     return (1);
   i = 2;
   while (av[i])
     if (add_elem_to_list(&wrk, wrk.arg, av[i++]))
       return (1);
-  init_window(&wrk);
+  if (init_window(&wrk) || init_tabs(&wrk))
+    return (1);
   if (put_error(&wrk, on_going_win(&wrk)))
     return (1);
   return (0);

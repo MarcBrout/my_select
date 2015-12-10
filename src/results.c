@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Wed Dec  9 09:37:51 2015 marc brout
-** Last update Wed Dec  9 20:53:02 2015 marc brout
+** Last update Thu Dec 10 17:23:25 2015 marc brout
 */
 
 #include "my_select.h"
@@ -21,10 +21,9 @@ t_arg		*advance(t_wrk *wrk, t_arg *arg)
   int		i;
   int		c;
 
-  if ((c = ((wrk->pos / (wrk->win->h)) / wrk->win->col)) >=
-      (wrk->win->col - 1))
+  if ((c = (wrk->pos / wrk->win->h)) > (wrk->win->col / 2))
     {
-      i = wrk->win->h * (c + 1);
+      i = wrk->win->h * c + 1;
       while (--i > 0)
 	arg = arg->next;
     }
@@ -62,9 +61,7 @@ void		put_str_select(t_arg *tmp, char *prec)
     {
       if (*prec)
 	my_putchar(' ');
-      write(1, "\"", 1);
       write(1, tmp->str, my_strlen(tmp->str));
-      write(1, "\"", 1);
       *prec = 1;
     }
 }
@@ -76,11 +73,8 @@ void		put_user_select(t_wrk *wrk)
 
   prec = 0;
   tmp = wrk->arg;
-  while (tmp != wrk->arg->prev)
-    {
-      put_str_select(tmp, &prec);
-      tmp = tmp->next;
-    }
+  while ((tmp = tmp->next) && tmp != wrk->arg)
+    put_str_select(tmp, &prec);
   put_str_select(tmp, &prec);
 }
 

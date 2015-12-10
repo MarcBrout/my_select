@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Wed Dec  9 09:23:40 2015 marc brout
-** Last update Wed Dec  9 10:19:25 2015 marc brout
+** Last update Thu Dec 10 17:51:07 2015 marc brout
 */
 
 #include "my_select.h"
@@ -20,6 +20,7 @@ int		add_elem_to_list(t_wrk *wrk, t_arg *arg, char *str)
     return (2);
   elem->str = str;
   elem->cursor = 0;
+  elem->search = 0;
   elem->select = 0;
   elem->next = arg;
   elem->prev = arg->prev;
@@ -39,12 +40,24 @@ int		create_first_elem(t_wrk *wrk, char *str)
   elem->str = str;
   elem->cursor = 1;
   elem->select = 0;
+  elem->search = 0;
   elem->next = elem;
   elem->prev = elem;
   wrk->arg = elem;
   wrk->strl = my_strlen(str);
   wrk->len = 1;
   return (0);
+}
+
+t_arg		*delete_node_sel(t_wrk *wrk, t_arg *arg)
+{
+  t_arg		*tmp;
+
+  tmp = arg->prev;
+  wrk->cur = arg;
+  delete_node(wrk);
+  wrk->cur->cursor = 0;
+  return (tmp);
 }
 
 void		delete_node(t_wrk *wrk)

@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Wed Dec  9 09:30:25 2015 marc brout
-** Last update Wed Dec  9 20:53:04 2015 marc brout
+** Last update Thu Dec 10 20:17:48 2015 marc brout
 */
 
 #include "my_select.h"
@@ -62,17 +62,11 @@ void		move_prev(t_wrk *wrk)
 
 void		move_key(t_wrk *wrk, int key)
 {
-  if (key == KEY_DOWN)
-    move_next(wrk);
-  if (key == KEY_LEFT)
-    move_left(wrk);
-  if (key == KEY_RIGHT)
-    move_right(wrk);
-  if (key == KEY_UP)
-    move_prev(wrk);
-  if (key == MY_KEY_SPACE)
-    select_it(wrk);
-  if (key == KEY_DC || key == MY_KEY_BSPACE)
-    delete_node(wrk);
+  int		i;
+
+  i = -1;
+  while (++i < 10 && wrk->keytab[i] != key);
+  if (i < 10)
+    wrk->pfunc[i](wrk);
   clear();
 }

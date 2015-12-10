@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Tue Dec  1 13:44:57 2015 marc brout
-** Last update Thu Dec 10 20:45:24 2015 marc brout
+** Last update Thu Dec 10 21:07:12 2015 marc brout
 */
 
 #ifndef MY_SELECT_H_
@@ -60,7 +60,7 @@ int create_first_elem(t_wrk *, char *);
 void delete_node(t_wrk *);
 t_arg *delete_node_sel(t_wrk *, t_arg *);
 void del_select(t_wrk *);
-void free_list(t_arg *);
+void free_list(t_wrk *);
 void init_keytab(t_wrk *);
 void init_pfunc(t_wrk *);
 char init_tabs(t_wrk *);

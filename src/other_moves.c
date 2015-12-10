@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Thu Dec 10 18:54:06 2015 marc brout
-** Last update Thu Dec 10 19:15:09 2015 marc brout
+** Last update Thu Dec 10 21:06:52 2015 marc brout
 */
 
 #include "my_select.h"
@@ -46,13 +46,16 @@ void		del_select(t_wrk *wrk)
   wrk->cur->cursor = 1;
 }
 
-void		free_list(t_arg *arg)
+void		free_list(t_wrk *wrk)
 {
   t_arg		*tmp;
 
-  tmp = arg->next;
-  while ((tmp = tmp->next) != arg)
+  tmp = wrk->arg->next;
+  while ((tmp = tmp->next) != wrk->arg)
     free(tmp->prev);
-  free(tmp->prev);
-  free(arg);
+  if (tmp->prev != wrk->arg)
+    free(tmp->prev);
+  free(wrk->arg);
+  free(wrk->keytab);
+  free(wrk->pfunc);
 }

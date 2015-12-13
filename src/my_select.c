@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Tue Dec  1 13:40:18 2015 marc brout
-** Last update Thu Dec 10 21:08:06 2015 marc brout
+** Last update Sun Dec 13 16:46:51 2015 marc brout
 */
 
 #include "my_select.h"
@@ -53,7 +53,7 @@ char		put_error(t_wrk *wrk, char err)
     {
       endwin();
       if (err == 2)
-	write(2, "No more argument in the list\n", 30);
+	write(2, "No more argument left in the list\n", 35);
       delscreen(wrk->screen);
       free_list(wrk);
       return (1);

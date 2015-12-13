@@ -5,7 +5,7 @@
 ## Login   <brout_m@epitech.net>
 ## 
 ## Started on  Tue Dec  1 22:51:35 2015 marc brout
-## Last update Thu Dec 10 21:02:03 2015 marc brout
+## Last update Sun Dec 13 16:21:23 2015 marc brout
 ##
 
 SRCP	= ./src/
@@ -24,7 +24,7 @@ NAME    = my_select
 
 CC      = gcc
 
-CFLAGS  = -g
+CFLAGS  = 
 
 LDFLAGS = -L./lib/ -lmy -lncurses -I./include/
 

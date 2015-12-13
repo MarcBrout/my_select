@@ -5,7 +5,7 @@
 ** Login   <brout_m@epitech.net>
 ** 
 ** Started on  Thu Dec 10 18:54:06 2015 marc brout
-** Last update Thu Dec 10 21:06:52 2015 marc brout
+** Last update Sun Dec 13 16:16:56 2015 marc brout
 */
 
 #include "my_select.h"
@@ -50,12 +50,15 @@ void		free_list(t_wrk *wrk)
 {
   t_arg		*tmp;
 
-  tmp = wrk->arg->next;
-  while ((tmp = tmp->next) != wrk->arg)
-    free(tmp->prev);
-  if (tmp->prev != wrk->arg)
-    free(tmp->prev);
-  free(wrk->arg);
+  if (wrk->len)
+    {
+      tmp = wrk->arg->next;
+      while ((tmp = tmp->next) != wrk->arg)
+	free(tmp->prev);
+      if (tmp->prev != wrk->arg)
+	free(tmp->prev);
+      free(wrk->arg);
+    }
   free(wrk->keytab);
-  free(wrk->pfunc);
+  free(wrk->pfunc);    
 }
